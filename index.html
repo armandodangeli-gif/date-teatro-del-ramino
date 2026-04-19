@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Date Teatro del Ramino</title>
+  <meta name="description" content="Calendario spettacoli Teatro del Ramino accessibile da smartphone e tablet." />
+  <meta name="theme-color" content="#7a0f0f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Date Teatro del Ramino" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <style>
+    :root {
+      --bg-1: #071c1c;
+      --bg-2: #0b2a2a;
+      --card: rgba(255, 255, 255, 0.1);
+      --card-border: rgba(255, 255, 255, 0.18);
+      --text: #effcf9;
+      --muted: #bde4dc;
+      --accent: #14b8a6;
+      --accent-2: #22c55e;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(20, 184, 166, 0.25), transparent 28%),
+        radial-gradient(circle at left bottom, rgba(34, 197, 94, 0.18), transparent 22%),
+        linear-gradient(160deg, var(--bg-1), var(--bg-2));
+      color: var(--text);
+    }
+
+    body {
+      padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .shell {
+      width: min(100%, 560px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+      border: 1px solid var(--card-border);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+
+    .hero {
+      padding: 28px 22px 18px;
+      position: relative;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .brand img {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 6px;
+      object-fit: cover;
+    }
+
+    .title {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      line-height: 1.1;
+      margin: 0;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.45;
+    }
+
+    .content {
+      padding: 0 22px 22px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+
+    .panel h2 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .actions {
+      display: grid;
+      gap: 12px;
+    }
+
+    button, a.button {
+      appearance: none;
+      border: none;
+      width: 100%;
+      text-decoration: none;
+      cursor: pointer;
+      border-radius: 18px;
+      padding: 16px 18px;
+      font-size: 1rem;
+      font-weight: 700;
+      transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+      text-align: center;
+    }
+
+    button:active, a.button:active { transform: scale(0.98); }
+
+    .primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      box-shadow: 0 12px 24px rgba(20, 184, 166, 0.24);
+    }
+
+    .secondary {
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .quick-link {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text);
+      border-radius: 18px;
+      padding: 14px;
+      text-decoration: none;
+      min-height: 88px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .quick-link strong {
+      font-size: 0.98rem;
+    }
+
+    .quick-link span {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .hint, .install-box {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text);
+      font-size: 0.86rem;
+      margin-bottom: 14px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #34d399;
+      box-shadow: 0 0 0 6px rgba(52, 211, 153, 0.12);
+    }
+
+    .footer {
+      padding: 0 22px 22px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .small { font-size: 0.84rem; }
+    .hidden { display: none !important; }
+
+    @media (max-width: 420px) {
+      .quick-links { grid-template-columns: 1fr; }
+      .brand img { width: 64px; height: 64px; }
+      .hero { padding: 22px 18px 14px; }
+      .content, .footer { padding-left: 18px; padding-right: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="status"><span class="dot"></span> Pronto per Home Screen</div>
+      <div class="brand">
+        <img src="icons/icon-192.png" alt="Icona app" />
+        <div>
+          <h1 class="title">Calendario spettacoli Teatro del Ramino</h1>
+          <p class="subtitle">Calendario Semplice e veloce per smartphone e iPad.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="panel actions">
+        <button id="openMain" class="primary">apri e guarda il Calendario</button>
+        <button id="installBtn" class="secondary hidden">Installa sulla schermata Home</button>
+        <button id="copyLinkBtn" class="secondary">Copia il link del Calendario date TDR</button>
+      </div>
+
+      <div class="panel">
+        <h2>Accessi rapidi</h2>
+        <div class="quick-links">
+          <a class="quick-link" id="quick1" href="#" rel="noopener">
+            <strong>Archivio</strong>
+            <span>Collegamento rapido configurabile</span>
+          </a>
+          <a class="quick-link" id="quick2" href="#" rel="noopener">
+            <strong>Calendario</strong>
+            <span>Seconda funzione o secondo link</span>
+          </a>
+          <a class="quick-link" id="quick3" href="#" rel="noopener">
+            <strong>Documenti</strong>
+            <span>Area file o modulo dedicato</span>
+          </a>
+          <a class="quick-link" id="quick4" href="#" rel="noopener">
+            <strong>Supporto</strong>
+            <span>WhatsApp, email o pagina istruzioni</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="panel install-box" id="iosHint">
+        <h2>Installazione su iPhone e iPad</h2>
+        <p>Apri questa pagina in Safari, tocca Condividi e poi Aggiungi a schermata Home. Su iOS il pulsante di installazione automatico spesso non compare, quindi questa procedura manuale resta la più affidabile.</p>
+      </div>
+
+      <div class="panel hint">
+        <h2>Nota tecnica</h2>
+        <p>Questo launcher non incorpora AppSheet in iframe. Apre invece il gestionale direttamente nel browser mobile, evitando i problemi di accesso e di login incorporato che spesso si verificano nelle integrazioni embedded.</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      Modifica i link nel blocco di configurazione di <strong>index.html</strong> e aggiorna il repository GitHub per pubblicare subito la nuova versione.
+    </div>
+  </main>
+
+  <script>
+    const APP_CONFIG = {
+      appName: 'Date Teatro del Ramino',
+      mainUrl: 'https://www.appsheet.com/newshortcut/53d4de0d-080c-4e3b-af0b-485952102753',
+quickLinks: [
+ { id:'quick1', title:'Calendario Soci', subtitle:'Apri il calendario aggiornato', url:'https://www.appsheet.com/newshortcut/53d4de0d-080c-4e3b-af0b-485952102753' },
+
+ { id:'quick2', title:'Sito Web', subtitle:'Teatro del Ramino', url:'https://teatrodelramino.it' },
+
+ { id:'quick3', title:'Contatti', subtitle:'Email compagnia', url:'mailto:info@teatrodelramino.it' },
+
+ { id:'quick4', title:'Supporto', subtitle:'Informazioni utili', url:'https://teatrodelramino.it' }
+]
+    };
+
+    const isIOS = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+    const inStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    const installBtn = document.getElementById('installBtn');
+    const iosHint = document.getElementById('iosHint');
+    const openMain = document.getElementById('openMain');
+    const copyLinkBtn = document.getElementById('copyLinkBtn');
+    let deferredPrompt = null;
+
+    document.title = APP_CONFIG.appName;
+    document.querySelector('.title').textContent = APP_CONFIG.appName;
+    document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', APP_CONFIG.appName);
+
+    APP_CONFIG.quickLinks.forEach((item) => {
+      const el = document.getElementById(item.id);
+      if (!el) return;
+      el.href = item.url;
+      el.querySelector('strong').textContent = item.title;
+      el.querySelector('span').textContent = item.subtitle;
+      el.addEventListener('click', (event) => {
+        event.preventDefault();
+        openExternal(item.url);
+      });
+    });
+
+    openMain.addEventListener('click', () => openExternal(APP_CONFIG.mainUrl));
+
+    copyLinkBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(APP_CONFIG.mainUrl);
+        copyLinkBtn.textContent = 'Link copiato';
+        setTimeout(() => copyLinkBtn.textContent = 'Copia il link del gestionale', 1800);
+      } catch (err) {
+        alert('Copia non riuscita. Link: ' + APP_CONFIG.mainUrl);
+      }
+    });
+
+    function openExternal(url) {
+      if (!url || url.includes('YOUR-APP-ID') || url.includes('example.com')) {
+        alert('Inserisci prima il link reale del gestionale o dei collegamenti rapidi nel file index.html.');
+        return;
+      }
+      window.location.href = url;
+    }
+
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      deferredPrompt = event;
+      if (!isIOS && !inStandalone) {
+        installBtn.classList.remove('hidden');
+      }
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      installBtn.classList.add('hidden');
+    });
+
+    if (!isIOS) {
+      iosHint.querySelector('h2').textContent = 'Installazione su Android';
+      iosHint.querySelector('p').textContent = 'Apri questa pagina in Chrome o Samsung Internet e usa Installa app oppure Aggiungi a schermata Home. Se il browser non propone l’installazione, usa il menu del browser.';
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
