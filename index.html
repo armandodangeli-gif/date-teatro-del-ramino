@@ -12,6 +12,7 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icons/icon-192.png" sizes="192x192" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+
   <style>
     :root {
       --bg-1: #071c1c;
@@ -26,7 +27,9 @@
       --radius: 24px;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html, body {
       margin: 0;
@@ -138,7 +141,9 @@
       text-align: center;
     }
 
-    button:active, a.button:active { transform: scale(0.98); }
+    button:active, a.button:active {
+      transform: scale(0.98);
+    }
 
     .primary {
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
@@ -216,55 +221,78 @@
       line-height: 1.5;
     }
 
-    .small { font-size: 0.84rem; }
-    .hidden { display: none !important; }
+    .hidden {
+      display: none !important;
+    }
 
     @media (max-width: 420px) {
-      .quick-links { grid-template-columns: 1fr; }
-      .brand img { width: 64px; height: 64px; }
-      .hero { padding: 22px 18px 14px; }
-      .content, .footer { padding-left: 18px; padding-right: 18px; }
+      .quick-links {
+        grid-template-columns: 1fr;
+      }
+
+      .brand img {
+        width: 64px;
+        height: 64px;
+      }
+
+      .hero {
+        padding: 22px 18px 14px;
+      }
+
+      .content, .footer {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
     }
   </style>
 </head>
+
 <body>
   <main class="shell">
     <section class="hero">
-      <div class="status"><span class="dot"></span> Pronto per Home Screen</div>
+      <div class="status">
+        <span class="dot"></span>
+        Pronto per Home Screen
+      </div>
+
       <div class="brand">
         <img src="icons/icon-192.png" alt="Icona app" />
         <div>
-          <h1 class="title">Calendario spettacoli Teatro del Ramino</h1>
-          <p class="subtitle">Calendario Semplice e veloce per smartphone e iPad.</p>
+          <h1 class="title">Date Teatro del Ramino</h1>
+          <p class="subtitle">Calendario semplice e veloce per smartphone e iPad.</p>
         </div>
       </div>
     </section>
 
     <section class="content">
       <div class="panel actions">
-        <button id="openMain" class="primary">apri e guarda il Calendario</button>
+        <button id="openMain" class="primary">Apri e guarda il calendario</button>
         <button id="installBtn" class="secondary hidden">Installa sulla schermata Home</button>
-        <button id="copyLinkBtn" class="secondary">Copia il link del Calendario date TDR</button>
+        <button id="copyLinkBtn" class="secondary">Copia il link del calendario date TDR</button>
       </div>
 
       <div class="panel">
         <h2>Accessi rapidi</h2>
+
         <div class="quick-links">
           <a class="quick-link" id="quick1" href="#" rel="noopener">
-            <strong>Archivio</strong>
-            <span>Collegamento rapido configurabile</span>
+            <strong>Date spettacoli</strong>
+            <span>Apri il calendario aggiornato</span>
           </a>
+
           <a class="quick-link" id="quick2" href="#" rel="noopener">
-            <strong>Calendario</strong>
-            <span>Seconda funzione o secondo link</span>
+            <strong>Sito Web</strong>
+            <span>Teatro del Ramino</span>
           </a>
+
           <a class="quick-link" id="quick3" href="#" rel="noopener">
-            <strong>Documenti</strong>
-            <span>Area file o modulo dedicato</span>
+            <strong>Contatti</strong>
+            <span>Email compagnia</span>
           </a>
+
           <a class="quick-link" id="quick4" href="#" rel="noopener">
             <strong>Supporto</strong>
-            <span>WhatsApp, email o pagina istruzioni</span>
+            <span>Informazioni utili</span>
           </a>
         </div>
       </div>
@@ -276,28 +304,47 @@
 
       <div class="panel hint">
         <h2>Nota tecnica</h2>
-        <p>Questo launcher non incorpora AppSheet in iframe. Apre invece il gestionale direttamente nel browser mobile, evitando i problemi di accesso e di login incorporato che spesso si verificano nelle integrazioni embedded.</p>
+        <p>Questo launcher apre direttamente la pagina web delle date del Teatro del Ramino, senza passare da AppSheet.</p>
       </div>
     </section>
 
     <div class="footer">
-      Modifica i link nel blocco di configurazione di <strong>index.html</strong> e aggiorna il repository GitHub per pubblicare subito la nuova versione.
+      Date Teatro del Ramino — collegamento rapido per soci, artisti e collaboratori.
     </div>
   </main>
 
   <script>
     const APP_CONFIG = {
       appName: 'Date Teatro del Ramino',
-      mainUrl: 'https://www.appsheet.com/newshortcut/53d4de0d-080c-4e3b-af0b-485952102753',
-quickLinks: [
- { id:'quick1', title:'Calendario Soci', subtitle:'Apri il calendario aggiornato', url:'https://www.appsheet.com/newshortcut/53d4de0d-080c-4e3b-af0b-485952102753' },
 
- { id:'quick2', title:'Sito Web', subtitle:'Teatro del Ramino', url:'https://teatrodelramino.it' },
+      mainUrl: 'https://script.google.com/macros/s/AKfycbwGaZYPGz54XrBl65AJpA_sEaR_aKe2TnbqHXRFgJ2CXdjQB1GbBc_Uy3hfsG_HCBPx/exec?page=soci',
 
- { id:'quick3', title:'Contatti', subtitle:'Email compagnia', url:'mailto:info@teatrodelramino.it' },
-
- { id:'quick4', title:'Supporto', subtitle:'Informazioni utili', url:'https://teatrodelramino.it' }
-]
+      quickLinks: [
+        {
+          id: 'quick1',
+          title: 'Date spettacoli',
+          subtitle: 'Apri il calendario aggiornato',
+          url: 'https://script.google.com/macros/s/AKfycbwGaZYPGz54XrBl65AJpA_sEaR_aKe2TnbqHXRFgJ2CXdjQB1GbBc_Uy3hfsG_HCBPx/exec?page=soci'
+        },
+        {
+          id: 'quick2',
+          title: 'Sito Web',
+          subtitle: 'Teatro del Ramino',
+          url: 'https://teatrodelramino.it'
+        },
+        {
+          id: 'quick3',
+          title: 'Contatti',
+          subtitle: 'Email compagnia',
+          url: 'mailto:info@teatrodelramino.it'
+        },
+        {
+          id: 'quick4',
+          title: 'Supporto',
+          subtitle: 'Informazioni utili',
+          url: 'https://teatrodelramino.it'
+        }
+      ]
     };
 
     const isIOS = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
@@ -306,6 +353,7 @@ quickLinks: [
     const iosHint = document.getElementById('iosHint');
     const openMain = document.getElementById('openMain');
     const copyLinkBtn = document.getElementById('copyLinkBtn');
+
     let deferredPrompt = null;
 
     document.title = APP_CONFIG.appName;
@@ -314,23 +362,31 @@ quickLinks: [
 
     APP_CONFIG.quickLinks.forEach((item) => {
       const el = document.getElementById(item.id);
+
       if (!el) return;
+
       el.href = item.url;
       el.querySelector('strong').textContent = item.title;
       el.querySelector('span').textContent = item.subtitle;
+
       el.addEventListener('click', (event) => {
         event.preventDefault();
         openExternal(item.url);
       });
     });
 
-    openMain.addEventListener('click', () => openExternal(APP_CONFIG.mainUrl));
+    openMain.addEventListener('click', () => {
+      openExternal(APP_CONFIG.mainUrl);
+    });
 
     copyLinkBtn.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(APP_CONFIG.mainUrl);
         copyLinkBtn.textContent = 'Link copiato';
-        setTimeout(() => copyLinkBtn.textContent = 'Copia il link del gestionale', 1800);
+
+        setTimeout(() => {
+          copyLinkBtn.textContent = 'Copia il link del calendario date TDR';
+        }, 1800);
       } catch (err) {
         alert('Copia non riuscita. Link: ' + APP_CONFIG.mainUrl);
       }
@@ -338,15 +394,17 @@ quickLinks: [
 
     function openExternal(url) {
       if (!url || url.includes('YOUR-APP-ID') || url.includes('example.com')) {
-        alert('Inserisci prima il link reale del gestionale o dei collegamenti rapidi nel file index.html.');
+        alert('Inserisci prima il link reale del calendario nel file index.html.');
         return;
       }
+
       window.location.href = url;
     }
 
     window.addEventListener('beforeinstallprompt', (event) => {
       event.preventDefault();
       deferredPrompt = event;
+
       if (!isIOS && !inStandalone) {
         installBtn.classList.remove('hidden');
       }
@@ -354,6 +412,7 @@ quickLinks: [
 
     installBtn.addEventListener('click', async () => {
       if (!deferredPrompt) return;
+
       deferredPrompt.prompt();
       await deferredPrompt.userChoice;
       deferredPrompt = null;
